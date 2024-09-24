@@ -1,0 +1,31 @@
+doceker run
+docker -v
+docker run hello-world
+docker run busy ping google.com
+docker stop 9bce543aee64
+docker run -p 8800:80 nginx
+docker run -d -p 7800:80 nginx
+docker ps
+docekr images
+docker system
+docker images rm hello-world
+
+โหลด images
+docker pull wordpress
+docker pull musql:5.7
+docker pull phpmyadmin/phpmyadmin
+
+
+**create network
+docker network create wordpress สร้าง
+docker network ls               ให้โชว์ว่ามีอะไรย้าง
+docker network rm wordpress     ลบ
+
+docker run --name mysql --network wordpress  -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+docker run --name pma --network wordpress -p 8888:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+docker run -d --name wordpress --network wordpress -p 888:80 -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=worpress_db wordpress
+
+02
+docker run --name mysql02 --network wordpress02 -v mysql_volumn:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress02_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+docker run --name pma02 --network wordpress02 -p 8889:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+docker run -d --name wordpress02 --network wordpress02 -v wp_volume:/var/www/html  -p 889:80 -e WORDPRESS_DB_HOST=mysql02 -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress02_db wordpress
